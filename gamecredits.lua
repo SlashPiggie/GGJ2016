@@ -42,10 +42,11 @@ function scene:create( event )
     --title:setFillColor( 0 )
     sceneGroup:insert( title )
 
-    local creditText = display.newText( "Team Rejects!", 250, 250, native.systemFont, 16 )
-    creditText:setFillColor( 1 )
-    creditText.x = display.contentCenterX
-    creditText.y = display.contentCenterY 
+    --local creditText = display.newText( textSelection[2], 250, 250, native.systemFont, 16 )
+    --creditText:setFillColor( 1 )
+    local creditText = display.newImage("images/credit.png", true)
+    creditText.x = display.contentCenterX - 10
+    creditText.y = display.contentCenterY  + 50
     sceneGroup:insert(creditText)
 
     -- http://www.freesfx.co.uk
