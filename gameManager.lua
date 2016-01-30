@@ -84,7 +84,11 @@ function gameManager.new()
 
 	gm.group = display.newGroup( )
 
-	local ritualImg = display.newImageRect( gm.group, "images/ritual_view1.png", 90, 90 )
+	local bg = display.newImageRect( gm.group, "images/terrain_grass.png", 480, 370)
+
+	bg.x, bg.y = 0.5*display.contentWidth, 0.5*display.contentHeight 
+
+	local ritualImg = display.newImageRect( gm.group, "images/ritual_symbol.png", 90, 90 )
 	ritualImg.x = 0.5 * display.contentWidth
 	ritualImg.y = 0.5 * display.contentHeight
 
