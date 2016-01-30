@@ -52,11 +52,16 @@ function scene:create( event )
     sceneGroup:insert(background)
 
     --local title = display.newBitmapText( titleOptions )
-    local title = display.newText("Game Title", 125, 32, native.systemFontBold, 32)
-    title.x = display.contentCenterX
-    title.y = 40
-    title:setFillColor( 0 )
-    sceneGroup:insert( title )
+    -- local title = display.newText("Prime Ritual", 125, 32, native.systemFontBold, 32)
+    -- title.x = display.contentCenterX
+    -- title.y = 40
+    -- title:setFillColor( 0 )
+    -- sceneGroup:insert( title )
+
+    local helpScreen = display.newImage("images/helpScreen.png")
+    helpScreen.x = display.contentCenterX - 5
+    helpScreen.y = display.contentCenterY - 20
+    sceneGroup:insert( helpScreen )
 
     local doneButton = widget.newButton({
         id = "button1",
