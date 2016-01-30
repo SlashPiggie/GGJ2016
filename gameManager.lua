@@ -1,3 +1,4 @@
+local composer = require("composer")
 local enemy = require("enemy")
 
 local gameManager = {}
@@ -15,7 +16,7 @@ local MIN_SPAWN_DELAY = 500
 
 function gameOver(gm)
 
-	print("gameOver")
+	composer.gotoScene( "gameover" )
 end
 
 function increaseDifficulty(event)
@@ -72,6 +73,12 @@ function gameManager.new()
 	return gm
 end
 
+function gameManager.destroy(gm)
+	timer.cancel( gm.spawnTimer )
+	timer.cancel( gm.difficultyTimer )
+	gm.group:removeSelf( )
+end
+
 function spawnEnemy(event)
 
 	local gm = event.source.params.gm
@@ -107,6 +114,8 @@ function randomizePosition()
 
 	end
 end
+
+
 
 
 return gameManager
