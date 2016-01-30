@@ -65,14 +65,13 @@ function scene:create( event )
         --label = "Play",
         defaultFile = "button/playButton.png",
         --overFile = "left.png",
-        width = 300,
-        height = 300,
+
         onEvent = handlePlayButtonEvent
     })
     
     -- local playButton = display.newImage("button/playButton.png")
     playButton.x = display.contentCenterX - 120
-    playButton.y = display.contentCenterY - 10
+    playButton.y = display.contentCenterY - 50
     sceneGroup:insert( playButton )
 
     -- Create the widget
