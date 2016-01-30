@@ -1,4 +1,4 @@
-local enemy = {}
+ local enemy = {}
 
 enemy.TAP_1HP = 1
 enemy.TAP_5HP = 2
@@ -101,12 +101,25 @@ end
 
 function enemy.new(gm, x, y, speed, type)
 
-	local enm = display.newRect( gm.group, x, y, 50, 50 )
-
-	enm.gm = gm
+	local enm
+	
+	if type == enemy.TAP_1HP then
+		enm = display.newImageRect( gm.group, "images/enemy1.png", 60, 80 )
+		enm.hp = 1
+	elseif type == enemy.TAP_5HP then
+		enm = display.newImageRect( gm.group, "images/enemy2.png", 60, 80 )
+		enm.hp = 5
+	elseif type == enemy.HOLD then
+		enm = display.newImageRect( gm.group, "images/enemy3.png", 60, 80 )
+		enm.hp = 20
+		enm.isHeld = false
+	end
 
 	enm.type = type
-	setType(enm)
+
+	enm.x = x
+	enm.y = y
+	enm.gm = gm
 
 	enm.id = "enemy"
 
@@ -129,22 +142,5 @@ function enemy.new(gm, x, y, speed, type)
 	return enm
 end
 
-function setType(enm)
-
-	if enm.type == enemy.TAP_1HP then
-
-		enm.hp = 1
-	elseif enm.type == enemy.TAP_5HP then
-
-		enm.hp = 5
-		enm:setFillColor( 1, 0, 0 )
-
-	elseif enm.type == enemy.HOLD then
-
-		enm.hp = 20
-		enm:setFillColor( 0, 1, 0 )
-		enm.isHeld = false
-	end
-end
 
 return enemy

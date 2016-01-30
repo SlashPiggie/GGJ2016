@@ -6,7 +6,7 @@ local gameManager = {}
 local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies
 
 local ENM_MIN_SPEED = 5
-local ENM_MAX_SPEED = 50
+local ENM_MAX_SPEED = 20
 local ENM_SPEED_STEP = 5
 
 local DIFFICULTY_DELAY = 10000
@@ -80,11 +80,13 @@ function gameManager.new()
 	gm.enmMaxSpeed = ENM_MAX_SPEED
 	gm.spawnDelay = SPAWN_DELAY
 
-	gm.zoneR = 50
+	gm.zoneR = 40
 
 	gm.group = display.newGroup( )
 
-	display.newCircle( gm.group, 0.5*display.contentWidth, 0.5*display.contentHeight, gm.zoneR )
+	local ritualImg = display.newImageRect( gm.group, "images/ritual_view1.png", 90, 90 )
+	ritualImg.x = 0.5 * display.contentWidth
+	ritualImg.y = 0.5 * display.contentHeight
 
 	newDifficultyTimer(gm)
 	newSpawnTimer(gm)
