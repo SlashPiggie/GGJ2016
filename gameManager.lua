@@ -84,7 +84,9 @@ function gameManager.new()
 
 	gm.group = display.newGroup( )
 
-	display.newCircle( gm.group, 0.5*display.contentWidth, 0.5*display.contentHeight, gm.zoneR )
+	local ritualImg = display.newImageRect( gm.group, "images/ritual_view1.png", 90, 90 )
+	ritualImg.x = 0.5 * display.contentWidth
+	ritualImg.y = 0.5 * display.contentHeight
 
 	newDifficultyTimer(gm)
 	newSpawnTimer(gm)
