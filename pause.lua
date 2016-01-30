@@ -54,8 +54,8 @@ function scene:create( event )
         emboss = false,
         defaultFile = "images/resetButton.png",
         overFile = "images/resetButton.png",
-        width = 60,
-        height = 60
+        width = 65,
+        height = 65
     } )
 
     sceneGroup:insert(resetButton)
@@ -67,7 +67,7 @@ function scene:create( event )
     {
         onPress = function() 
             composer.removeScene( "gameScene" )
-            composer.gotoScene( "menu")
+            composer.gotoScene( "menu", {effect = "fade"})
         end,
         emboss = false,
         defaultFile = "images/exitButton.png",
