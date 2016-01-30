@@ -1,7 +1,10 @@
 local composer = require( "composer" )
 local gameManager = require("gameManager")
+local widget = require("widget")
 
 local scene = composer.newScene()
+
+local pause, newPauseButton
 
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -12,6 +15,37 @@ local scene = composer.newScene()
 
 -- -------------------------------------------------------------------------------
 
+function pause(event)
+
+    local gm = event.target.params.gm
+
+    gameManager.pause(gm)
+end
+
+function newPauseButton(gm)
+
+    pauseButton = widget.newButton( 
+    {
+        label = "pause",
+        onPress = pause,
+        emboss = false,
+        -- Properties for a rounded rectangle button
+        shape = "roundedRect",
+        width = 50,
+        height = 20,
+        cornerRadius = 2,
+        fillColor = { default={1,0,0,1}, over={1,0.1,0.7,0.4} },
+        strokeColor = { default={1,0.4,0,1}, over={0.8,0.8,1,1} },
+        strokeWidth = 4
+    } )
+
+    pauseButton.x = display.contentWidth - pauseButton.width
+    pauseButton.y = 20
+
+    pauseButton.params = {gm = gm}
+
+    return pauseButton
+end
 
 -- "scene:create()"
 function scene:create( event )
@@ -19,6 +53,10 @@ function scene:create( event )
     local sceneGroup = self.view
 
     self.gm = gameManager.new()
+    sceneGroup:insert(self.gm.group)
+
+    self.pauseButton = newPauseButton(self.gm)
+    sceneGroup:insert(self.pauseButton)
 end
 
 

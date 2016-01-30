@@ -117,8 +117,10 @@ function enemy.new(gm, x, y, speed, type)
 	enm.rotation = enm.dir / math.pi * 180
 
 	function enm:enterFrame ()
-		updatePosition(self)
-		checkInZone(self)
+		if not gm.isPaused then
+			updatePosition(self)
+			checkInZone(self)
+		end
 	end
 
 	enm:addEventListener( "touch", onTouch )
