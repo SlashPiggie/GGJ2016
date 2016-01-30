@@ -16,6 +16,7 @@ local MIN_SPAWN_DELAY = 500
 
 function gameOver(gm)
 
+	composer.removeScene( "gameScene" )
 	composer.gotoScene( "gameover" )
 end
 
@@ -74,6 +75,7 @@ function gameManager.new()
 end
 
 function gameManager.destroy(gm)
+	print("destroying game manager")
 	timer.cancel( gm.spawnTimer )
 	timer.cancel( gm.difficultyTimer )
 	gm.group:removeSelf( )
