@@ -11,7 +11,8 @@ local myData = require( "mydata" )
 
 local function handlePlayButtonEvent( event )
     if ( "ended" == event.phase ) then
-        composer.gotoScene("gameScene", { effect = "crossFade", time = 333 })
+        composer.removeScene( "levelselect", false )
+        composer.gotoScene("levelselect", { effect = "crossFade", time = 333 })
     end
 end
 
@@ -47,15 +48,20 @@ function scene:create( event )
     -- setup a page background, really not that important though composer
     -- crashes out if there isn't a display object in the view.
     --
-    local background = display.newRect( 0, 0, 570, 360 )
-    background.x = display.contentCenterX
-    background.y = display.contentCenterY
+    local screen_adjustment = 0.4
+    --local background = display.newRect( 0, 0, 570, 360 )
+    local background = display.newImage("images/background3.jpg",true)
+    background.xScale = (screen_adjustment  * background.contentWidth)/background.contentWidth
+    background.yScale = background.xScale
+    background.x = display.contentWidth / 2
+    background.y = display.contentHeight / 2
     sceneGroup:insert( background )
 
-    local title = display.newText("Prime Ritual", 100, 32, native.systemFontBold, 32 )
+    --local title = display.newText("Prime Ritual", 125, 32, native.systemFontBold, 32 )
+    local title = display.newImage("images/gameTitle.png", true)
     title.x = display.contentCenterX + 10
-    title.y = 30
-    title:setFillColor( 0 )
+    title.y = 40
+    --title:setFillColor( 0 )
     sceneGroup:insert( title )
 
     -- Create the widget
@@ -63,56 +69,49 @@ function scene:create( event )
         id = "button1",
         --label = "Play",
         defaultFile = "button/playButton.png",
-        --overFile = "left.png",
-
+        overFile = "button/playButtonPressed.png",
         onEvent = handlePlayButtonEvent
     })
     
     -- local playButton = display.newImage("button/playButton.png")
     playButton.x = display.contentCenterX - 120
-    playButton.y = display.contentCenterY - 50
+    playButton.y = display.contentCenterY - 30
     sceneGroup:insert( playButton )
 
     -- Create the widget
     local settingsButton = widget.newButton({
         id = "button2",
         defaultFile = "button/settingsButton.png",
-        --overFile = "left.png",
-        width = 300,
-        height = 300,
+        overFile = "button/settingsButtonPressed.png",
         onEvent = handleSettingsButtonEvent
     })
     
     settingsButton.x = display.contentCenterX + 120
-    settingsButton.y = display.contentCenterY + 25
+    settingsButton.y = display.contentCenterY - 40
     sceneGroup:insert( settingsButton )
 
     -- Create the widget
     local helpButton = widget.newButton({
         id = "button3",
         defaultFile = "button/helpButton.png",
-        --overFile = "left.png",
-        width = 300,
-        height = 300,
+        overFile = "button/helpButtonPressed.png",
         onEvent = handleHelpButtonEvent
     })
 
-    helpButton.x = display.contentCenterX - 125
-    helpButton.y = display.contentCenterY + 100
+    helpButton.x = display.contentCenterX - 120
+    helpButton.y = display.contentCenterY + 90
     sceneGroup:insert( helpButton )
 
     -- Create the widget
     local creditsButton = widget.newButton({
         id = "button4",
         defaultFile = "button/creditsButton.png",
-        --overFile = "left.png",
-        width = 300,
-        height = 300,
+        overFile = "button/creditsButtonPressed.png",
         onEvent = handleCreditsButtonEvent
     })
     
-    creditsButton.x = display.contentCenterX + 95
-    creditsButton.y = display.contentCenterY + 120
+    creditsButton.x = display.contentCenterX + 120
+    creditsButton.y = display.contentCenterY + 85
     sceneGroup:insert( creditsButton )
 
 end
