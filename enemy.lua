@@ -1,4 +1,4 @@
-local enemy = {}
+ local enemy = {}
 
 enemy.TAP_1HP = 1
 enemy.TAP_5HP = 2
@@ -101,12 +101,28 @@ end
 
 function enemy.new(gm, x, y, speed, type)
 
-	local enm = display.newRect( gm.group, x, y, 50, 50 )
+	local enm
+	
+	if type == enemy.TAP_1HP then
+		enm = display.newImageRect( gm.group, "images/enemy1.png", 75, 100 )
+		enm.hp = 1
+	elseif type == enemy.TAP_5HP then
+		enm = display.newImageRect( gm.group, "images/enemy2.png", 75, 100 )
+		enm.hp = 5
+	elseif type == enemy.HOLD then
+		enm = display.newImageRect( gm.group, "images/enemy3.png", 75, 100 )
+		enm.hp = 20
+		enm.isHeld = false
+	end
 
+	enm.type = type
+
+	enm.x = x
+	enm.y = y
 	enm.gm = gm
 
 	enm.type = type
-	setType(enm)
+	--setType(enm)
 
 	enm.id = "enemy"
 

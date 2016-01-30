@@ -6,7 +6,7 @@ local gameManager = {}
 local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies
 
 local ENM_MIN_SPEED = 5
-local ENM_MAX_SPEED = 50
+local ENM_MAX_SPEED = 20
 local ENM_SPEED_STEP = 5
 
 local DIFFICULTY_DELAY = 10000
@@ -80,7 +80,7 @@ function gameManager.new()
 	gm.enmMaxSpeed = ENM_MAX_SPEED
 	gm.spawnDelay = SPAWN_DELAY
 
-	gm.zoneR = 50
+	gm.zoneR = 40
 
 	gm.group = display.newGroup( )
 
