@@ -72,7 +72,9 @@ end
 
 function gameManager.new()
 	
-	gm = {}
+	local gm = {}
+
+	gm.isPaused = false
 
 	gm.enmMinSpeed = ENM_MIN_SPEED
 	gm.enmMaxSpeed = ENM_MAX_SPEED
@@ -97,6 +99,20 @@ function gameManager.destroy(gm)
 	timer.cancel( gm.spawnTimer )
 	timer.cancel( gm.difficultyTimer )
 	gm.group:removeSelf( )
+end
+
+function gameManager.pause(gm)
+
+	gm.isPaused = true
+	timer.pause( gm.difficultyTimer )
+	timer.pause( gm.spawnTimer)
+end
+
+function gameManager.resume(gm)
+
+	gm.isPaused = false
+	timer.resume( gm.difficultyTimer )
+	timer.resume( gm.spawnTimer )
 end
 
 
