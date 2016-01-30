@@ -3,7 +3,7 @@ local enemy = require("enemy")
 
 local gameManager = {}
 
-local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, newSpawnTimer, newDifficultyTimer, randomizeType
+local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies
 
 local ENM_MIN_SPEED = 5
 local ENM_MAX_SPEED = 50
@@ -18,6 +18,8 @@ function gameOver(gm)
 
 	composer.removeScene( "gameScene" )
 	composer.gotoScene( "gameover" )
+
+	gameManager.destroy(gm)
 end
 
 function increaseDifficulty(event)
@@ -51,6 +53,22 @@ function newSpawnTimer(gm)
 	gm.spawnTimer.params = {gm = gm}
 end
 
+function destroyEnemies(gm)
+
+	print("destroy enemies")
+	print(gm.group.numChildren)
+
+	for i = gm.group.numChildren, 1, -1 do
+
+		print(i)
+
+		if gm.group[i].id == "enemy" then
+
+			enemy.destroy(gm.group[i])
+			print("destroyed")
+		end
+	end
+end
 
 function gameManager.new()
 	
@@ -75,11 +93,12 @@ function gameManager.new()
 end
 
 function gameManager.destroy(gm)
-	print("destroying game manager")
+	destroyEnemies(gm)
 	timer.cancel( gm.spawnTimer )
 	timer.cancel( gm.difficultyTimer )
 	gm.group:removeSelf( )
 end
+
 
 function spawnEnemy(event)
 
@@ -116,8 +135,6 @@ function randomizePosition()
 
 	end
 end
-
-
 
 
 return gameManager

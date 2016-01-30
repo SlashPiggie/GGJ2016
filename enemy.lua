@@ -6,7 +6,7 @@ enemy.HOLD = 3
 
 
 
-local calcDir, setVel, updatePosition, onTouch, checkInZone, destroy, setType, checkDeath, setHold, drainHP, removeHold
+local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold
 
 function calcDir(x, y)
 
@@ -28,11 +28,10 @@ function checkInZone(enm)
 	if ((0.5 * display.contentWidth - enm.x)^2 + (0.5 * display.contentHeight - enm.y)^2) <= enm.gm.zoneR^2 then
 
 		enm.gm:gameOver()
-		destroy(enm)
 	end
 end
 
-function destroy(enm)
+function enemy.destroy(enm)
 
 	if enm.holdTimer then
 		timer.cancel( enm.holdTimer )
@@ -96,7 +95,7 @@ end
 function checkDeath(enm)
 
 	if enm.hp <= 0 then
-		destroy(enm)
+		enemy.destroy(enm)
 	end
 end
 
@@ -108,6 +107,8 @@ function enemy.new(gm, x, y, speed, type)
 
 	enm.type = type
 	setType(enm)
+
+	enm.id = "enemy"
 
 	enm.speed = speed or 100
 	enm.dir = calcDir(x,y)
