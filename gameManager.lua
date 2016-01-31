@@ -13,11 +13,11 @@ local ENM_MAX_SPEED = 20
 local ENM_SPEED_STEP = 5
 
 local DIFFICULTY_DELAY = 2000
-local SPAWN_DELAY = 1000
+local SPAWN_DELAY = 1500
 local SPAWN_DELAY_STEP = 100
-local MIN_SPAWN_DELAY = 100
+local MIN_SPAWN_DELAY = 300
 
-local BGM_SWITCH_DELAY_VALUE = 1000
+local BGM_SWITCH_DELAY_VALUE = 500
 
 function gameOver(gm)
 
@@ -77,15 +77,11 @@ function destroyEnemies(gm)
 	print("destroy enemies")
 	print(gm.group.numChildren)
 
-	for i = gm.group.numChildren, 1, -1 do
+	for i = gm.enemyGroup.numChildren, 1, -1 do
 
-		print(i)
 
-		if gm.group[i].id == "enemy" then
-
-			enemy.destroy(gm.group[i])
-			print("destroyed")
-		end
+		enemy.destroy(gm.enemyGroup[i])
+		print("destroyed")
 	end
 end
 
@@ -124,6 +120,9 @@ function gameManager.new(sceneGroup)
 	local ritualImg = display.newImageRect( gm.group, "images/ritual_symbol.png", 2 * gm.zoneR, 2 * gm.zoneR )
 	ritualImg.x = 0.5 * display.contentWidth
 	ritualImg.y = 0.5 * display.contentHeight
+
+	gm.enemyGroup = display.newGroup( )
+	sceneGroup:insert(gm.enemyGroup )
 
 	newDifficultyTimer(gm)
 	newSpawnTimer(gm)
