@@ -1,23 +1,30 @@
 local composer = require("composer")
 local enemy = require("enemy")
+local soundTable = require("soundTable")
+local loadsave = require("loadsave")
 
 local gameManager = {}
 
-local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies
+local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, 
+	newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies, changeBgm, updateScore, saveScore
 
 local ENM_MIN_SPEED = 5
 local ENM_MAX_SPEED = 20
 local ENM_SPEED_STEP = 5
 
-local DIFFICULTY_DELAY = 10000
-local SPAWN_DELAY = 3000
+local DIFFICULTY_DELAY = 2000
+local SPAWN_DELAY = 1000
 local SPAWN_DELAY_STEP = 100
-local MIN_SPAWN_DELAY = 500
+local MIN_SPAWN_DELAY = 100
+
+local BGM_SWITCH_DELAY_VALUE = 1000
 
 function gameOver(gm)
 
+	audio.play( soundTable.death )
+
 	composer.removeScene( "gameScene" )
-	composer.gotoScene( "gameover" )
+	composer.gotoScene( "gameover", {params = {currentScore = gm.score, bestScore = gm.bestScore}} )
 
 	gameManager.destroy(gm)
 end
@@ -26,19 +33,29 @@ function increaseDifficulty(event)
 
 	local gm = event.source.params.gm
 
-	gm.spawnDelay = gm.spawnDelay - SPAWN_DELAY_STEP
+	changeBgm(gm)
 
-	if gm.spawnDelay < MIN_SPAWN_DELAY then
-		gm.spawnDelay = MIN_SPAWN_DELAY
+	if gm.spawnDelay >= MIN_SPAWN_DELAY then
+		timer.cancel(gm.spawnTimer)
+		newSpawnTimer(gm)
+		gm.spawnDelay = gm.spawnDelay - SPAWN_DELAY_STEP
 	end
 
 	gm.enmMinSpeed = gm.enmMinSpeed + ENM_SPEED_STEP
 	gm.enmMaxSpeed = gm.enmMaxSpeed + ENM_SPEED_STEP
 
-	timer.cancel(gm.spawnTimer)
-	newSpawnTimer(gm)
 
 	print(gm.enmMinSpeed, gm.enmMaxSpeed, gm.spawnDelay)
+end
+
+function changeBgm(gm)
+
+	if gm.bgmType == "slow" and gm.spawnDelay <= BGM_SWITCH_DELAY_VALUE then
+
+		gm.bgmType = "fast"
+		audio.stop(gm.bgm)
+		gm.bgm = audio.play(audio.loadStream("audio/fast.wav"), {loops = -1})
+	end
 end
 
 function newDifficultyTimer(gm)
@@ -52,6 +69,8 @@ function newSpawnTimer(gm)
 	gm.spawnTimer = timer.performWithDelay( gm.spawnDelay, spawnEnemy, -1 )
 	gm.spawnTimer.params = {gm = gm}
 end
+
+
 
 function destroyEnemies(gm)
 
@@ -70,9 +89,20 @@ function destroyEnemies(gm)
 	end
 end
 
-function gameManager.new()
+function gameManager.new(sceneGroup)
 	
 	local gm = {}
+
+	local scoreTable = loadsave.loadTable("score")
+
+	if scoreTable then
+		gm.bestScore = scoreTable.score or 0
+	else
+		gm.bestScore = 0
+	end
+ 
+	gm.bgm = audio.play(audio.loadStream("audio/slow.wav"), {loops = -1})
+
 
 	gm.isPaused = false
 
@@ -80,15 +110,18 @@ function gameManager.new()
 	gm.enmMaxSpeed = ENM_MAX_SPEED
 	gm.spawnDelay = SPAWN_DELAY
 
-	gm.zoneR = 40
+	gm.bgmType = "slow"
+
+	gm.zoneR = 45
 
 	gm.group = display.newGroup( )
+	sceneGroup:insert(gm.group)
 
-	local bg = display.newImageRect( gm.group, "images/terrain_grass.png", 480, 370)
+	local bg = display.newImageRect( gm.group, "images/terrain_dungeon.png", 480, 370)
 
 	bg.x, bg.y = 0.5*display.contentWidth, 0.5*display.contentHeight 
 
-	local ritualImg = display.newImageRect( gm.group, "images/ritual_symbol.png", 90, 90 )
+	local ritualImg = display.newImageRect( gm.group, "images/ritual_symbol.png", 2 * gm.zoneR, 2 * gm.zoneR )
 	ritualImg.x = 0.5 * display.contentWidth
 	ritualImg.y = 0.5 * display.contentHeight
 
@@ -96,11 +129,32 @@ function gameManager.new()
 	newSpawnTimer(gm)
 
 	gm.gameOver = gameOver
+	gm.updateScore = updateScore
+
+	gm.score = 0
+
+	gm.scoreTextObj = display.newText( sceneGroup, "0", 0.5 * display.contentWidth, 20)
 
 	return gm
 end
 
+
+function saveScore(gm)
+
+	if gm.score > gm.bestScore then
+
+		gm.bestScore = gm.score
+
+		loadsave.saveTable({score = gm.score}, "score")
+	end
+end
+
 function gameManager.destroy(gm)
+
+	saveScore(gm)
+
+	audio.stop(gm.bgm)
+	gm.bgm = nil
 	destroyEnemies(gm)
 	timer.cancel( gm.spawnTimer )
 	timer.cancel( gm.difficultyTimer )
@@ -119,6 +173,13 @@ function gameManager.resume(gm)
 	gm.isPaused = false
 	timer.resume( gm.difficultyTimer )
 	timer.resume( gm.spawnTimer )
+end
+
+function updateScore(gm, score)
+
+	gm.score = gm.score + score
+
+	gm.scoreTextObj.text = gm.score
 end
 
 
