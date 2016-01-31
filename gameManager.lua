@@ -117,7 +117,7 @@ function gameManager.new(sceneGroup)
 	gm.group = display.newGroup( )
 	sceneGroup:insert(gm.group)
 
-	local bg = display.newImageRect( gm.group, "images/terrain_dungeon.png", 480, 370)
+	local bg = display.newImageRect( gm.group, "images/terrain_dungeon.png", 1000, 500)
 
 	bg.x, bg.y = 0.5*display.contentWidth, 0.5*display.contentHeight 
 

@@ -11,6 +11,8 @@ display.setStatusBar( display.HiddenStatusBar )
 
 math.randomseed( os.time() )
 
+system.activate( "multitouch" )
+
 if device.isAndroid then
 	widget.setTheme( "widget_theme_android_holo_light" )
     store = require("plugin.google.iap.v3")

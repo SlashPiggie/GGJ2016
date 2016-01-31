@@ -74,6 +74,22 @@ function scene:create( event )
     gameOverText.y = 50
     sceneGroup:insert(gameOverText)
 
+    local highScoreText = display.newText("Highscore: "..params.bestScore, 0, 0, "after_shok.ttf", 24)
+    highScoreText:setFillColor( 1 )
+    highScoreText.x = display.contentCenterX
+    highScoreText.y = 100
+    sceneGroup:insert(highScoreText)
+
+    self.highScoreText = highScoreText
+    
+    local yourScoreText = display.newText("Your score: "..params.currentScore,0,0,"after_shok.ttf",24)
+    yourScoreText:setFillColor(1)
+    yourScoreText.x = display.contentCenterX
+    yourScoreText.y = 150
+    sceneGroup:insert(yourScoreText)
+
+    self.yourScoreText = yourScoreText
+
     -- local leaderBoardButton = widget.newButton({
     --     id = "leaderboard",
     --     --label = "Play",
@@ -105,6 +121,11 @@ function scene:show( event )
 
         print("current score: ", params.currentScore)
         print("best score: ", params.bestScore)
+
+        self.highScoreText.text = "Highscore: "..params.bestScore
+        self.yourScoreText.text = "Your score: "..params.currentScore
+
+
         --
         -- Hook up your score code here to support updating your leaderboards
         --[[

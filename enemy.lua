@@ -8,7 +8,7 @@ enemy.HOLD = 3
 
 
 
-local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold, kill
+local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold, kill, deathAnimation
 
 function calcDir(x, y)
 
@@ -31,6 +31,9 @@ function checkInZone(enm)
 
 		enm.gm:gameOver()
 	end
+end
+
+function deathAnimation(x, y)
 end
 
 function kill(enm)
