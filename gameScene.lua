@@ -54,8 +54,7 @@ function scene:create( event )
 
     local sceneGroup = self.view
 
-    self.gm = gameManager.new()
-    sceneGroup:insert(self.gm.group)
+    self.gm = gameManager.new(sceneGroup)
 
     self.pauseButton = newPauseButton(self.gm)
     sceneGroup:insert(self.pauseButton)

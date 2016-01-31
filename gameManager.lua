@@ -1,20 +1,21 @@
 local composer = require("composer")
 local enemy = require("enemy")
 local soundTable = require("soundTable")
+local loadsave = require("loadsave")
 
 local gameManager = {}
 
 local spawnEnemy, gameOver, randomizePosition, increaseDifficulty, 
-	newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies, changeBgm
+	newSpawnTimer, newDifficultyTimer, randomizeType, destroyEnemies, changeBgm, updateScore, saveScore
 
 local ENM_MIN_SPEED = 5
 local ENM_MAX_SPEED = 20
 local ENM_SPEED_STEP = 5
 
-local DIFFICULTY_DELAY = 10000
-local SPAWN_DELAY = 3000
-local SPAWN_DELAY_STEP = 500
-local MIN_SPAWN_DELAY = 500
+local DIFFICULTY_DELAY = 2000
+local SPAWN_DELAY = 1000
+local SPAWN_DELAY_STEP = 100
+local MIN_SPAWN_DELAY = 100
 
 local BGM_SWITCH_DELAY_VALUE = 1000
 
@@ -32,19 +33,17 @@ function increaseDifficulty(event)
 
 	local gm = event.source.params.gm
 
-	gm.spawnDelay = gm.spawnDelay - SPAWN_DELAY_STEP
-
 	changeBgm(gm)
 
-	if gm.spawnDelay < MIN_SPAWN_DELAY then
-		gm.spawnDelay = MIN_SPAWN_DELAY
+	if gm.spawnDelay >= MIN_SPAWN_DELAY then
+		timer.cancel(gm.spawnTimer)
+		newSpawnTimer(gm)
+		gm.spawnDelay = gm.spawnDelay - SPAWN_DELAY_STEP
 	end
 
 	gm.enmMinSpeed = gm.enmMinSpeed + ENM_SPEED_STEP
 	gm.enmMaxSpeed = gm.enmMaxSpeed + ENM_SPEED_STEP
 
-	timer.cancel(gm.spawnTimer)
-	newSpawnTimer(gm)
 
 	print(gm.enmMinSpeed, gm.enmMaxSpeed, gm.spawnDelay)
 end
@@ -71,6 +70,8 @@ function newSpawnTimer(gm)
 	gm.spawnTimer.params = {gm = gm}
 end
 
+
+
 function destroyEnemies(gm)
 
 	print("destroy enemies")
@@ -88,11 +89,22 @@ function destroyEnemies(gm)
 	end
 end
 
-function gameManager.new()
+function gameManager.new(sceneGroup)
 	
 	local gm = {}
 
+	local scoreTable = loadsave.loadTable("score")
+
+	if scoreTable then
+		gm.bestScore = scoreTable.score or 0
+	else
+		gm.bestScore = 0
+	end
+
+	print("bestScore", gm.bestScore)
+ 
 	gm.bgm = audio.play(audio.loadStream("audio/slow.wav"), {loops = -1})
+
 
 	gm.isPaused = false
 
@@ -105,6 +117,7 @@ function gameManager.new()
 	gm.zoneR = 45
 
 	gm.group = display.newGroup( )
+	sceneGroup:insert(gm.group)
 
 	local bg = display.newImageRect( gm.group, "images/terrain_grass.png", 480, 370)
 
@@ -118,11 +131,27 @@ function gameManager.new()
 	newSpawnTimer(gm)
 
 	gm.gameOver = gameOver
+	gm.updateScore = updateScore
+
+	gm.score = 0
+
+	gm.scoreTextObj = display.newText( sceneGroup, "0", 0.5 * display.contentWidth, 20)
 
 	return gm
 end
 
+
+function saveScore(gm)
+
+	if gm.score > gm.bestScore then
+
+		loadsave.saveTable({score = gm.score}, "score")
+	end
+end
+
 function gameManager.destroy(gm)
+
+	saveScore(gm)
 
 	audio.stop(gm.bgm)
 	gm.bgm = nil
@@ -144,6 +173,13 @@ function gameManager.resume(gm)
 	gm.isPaused = false
 	timer.resume( gm.difficultyTimer )
 	timer.resume( gm.spawnTimer )
+end
+
+function updateScore(gm, score)
+
+	gm.score = gm.score + score
+
+	gm.scoreTextObj.text = gm.score
 end
 
 

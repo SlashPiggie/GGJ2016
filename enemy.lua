@@ -35,6 +35,8 @@ end
 
 function kill(enm)
 
+	enm.gm:updateScore(enm.score)
+
 	audio.play( soundTable.splat )
 	enemy.destroy(enm)
 end
@@ -114,13 +116,16 @@ function enemy.new(gm, x, y, speed, type)
 	if type == enemy.TAP_1HP then
 		enm = display.newImageRect( gm.group, "images/enemy1.png", 60, 80 )
 		enm.hp = 1
+		enm.score = 100
 	elseif type == enemy.TAP_5HP then
 		enm = display.newImageRect( gm.group, "images/enemy2.png", 60, 80 )
 		enm.hp = 5
+		enm.score = 500
 	elseif type == enemy.HOLD then
 		enm = display.newImageRect( gm.group, "images/enemy3.png", 60, 80 )
 		enm.hp = 20
 		enm.isHeld = false
+		enm.score = 500
 	end
 
 	enm.type = type
