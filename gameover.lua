@@ -102,6 +102,9 @@ function scene:show( event )
     params = event.params
 
     if event.phase == "did" then
+
+        print("current score: ", params.currentScore)
+        print("best score: ", params.bestScore)
         --
         -- Hook up your score code here to support updating your leaderboards
         --[[

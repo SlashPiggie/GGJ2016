@@ -1,4 +1,6 @@
- local enemy = {}
+local soundTable = require("soundTable")
+
+local enemy = {}
 
 enemy.TAP_1HP = 1
 enemy.TAP_5HP = 2
@@ -6,14 +8,14 @@ enemy.HOLD = 3
 
 
 
-local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold
+local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold, kill
 
 function calcDir(x, y)
 
 	return math.atan2( 0.5 * display.contentHeight - y, 0.5 * display.contentWidth - x  )
 end
 
-local function setVel(enm)
+function setVel(enm)
 	enm.vx = enm.speed * math.cos(enm.dir)
 	enm.vy = enm.speed * math.sin(enm.dir)
 end
@@ -29,6 +31,14 @@ function checkInZone(enm)
 
 		enm.gm:gameOver()
 	end
+end
+
+function kill(enm)
+
+	enm.gm:updateScore(enm.score)
+
+	audio.play( soundTable.splat )
+	enemy.destroy(enm)
 end
 
 function enemy.destroy(enm)
@@ -95,7 +105,7 @@ end
 function checkDeath(enm)
 
 	if enm.hp <= 0 then
-		enemy.destroy(enm)
+		kill(enm)
 	end
 end
 
@@ -106,13 +116,16 @@ function enemy.new(gm, x, y, speed, type)
 	if type == enemy.TAP_1HP then
 		enm = display.newImageRect( gm.group, "images/enemy1.png", 60, 80 )
 		enm.hp = 1
+		enm.score = 100
 	elseif type == enemy.TAP_5HP then
 		enm = display.newImageRect( gm.group, "images/enemy2.png", 60, 80 )
-		enm.hp = 5
+		enm.hp = 4
+		enm.score = 500
 	elseif type == enemy.HOLD then
 		enm = display.newImageRect( gm.group, "images/enemy3.png", 60, 80 )
 		enm.hp = 20
 		enm.isHeld = false
+		enm.score = 500
 	end
 
 	enm.type = type
