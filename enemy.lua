@@ -119,7 +119,7 @@ function enemy.new(gm, x, y, speed, type)
 		enm.score = 100
 	elseif type == enemy.TAP_5HP then
 		enm = display.newImageRect( gm.group, "images/enemy2.png", 60, 80 )
-		enm.hp = 5
+		enm.hp = 4
 		enm.score = 500
 	elseif type == enemy.HOLD then
 		enm = display.newImageRect( gm.group, "images/enemy3.png", 60, 80 )

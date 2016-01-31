@@ -24,7 +24,7 @@ function gameOver(gm)
 	audio.play( soundTable.death )
 
 	composer.removeScene( "gameScene" )
-	composer.gotoScene( "gameover" )
+	composer.gotoScene( "gameover", {params = {currentScore = gm.score, bestScore = gm.bestScore}} )
 
 	gameManager.destroy(gm)
 end
@@ -100,8 +100,6 @@ function gameManager.new(sceneGroup)
 	else
 		gm.bestScore = 0
 	end
-
-	print("bestScore", gm.bestScore)
  
 	gm.bgm = audio.play(audio.loadStream("audio/slow.wav"), {loops = -1})
 
@@ -119,7 +117,7 @@ function gameManager.new(sceneGroup)
 	gm.group = display.newGroup( )
 	sceneGroup:insert(gm.group)
 
-	local bg = display.newImageRect( gm.group, "images/terrain_grass.png", 480, 370)
+	local bg = display.newImageRect( gm.group, "images/terrain_dungeon.png", 480, 370)
 
 	bg.x, bg.y = 0.5*display.contentWidth, 0.5*display.contentHeight 
 
@@ -144,6 +142,8 @@ end
 function saveScore(gm)
 
 	if gm.score > gm.bestScore then
+
+		gm.bestScore = gm.score
 
 		loadsave.saveTable({score = gm.score}, "score")
 	end
