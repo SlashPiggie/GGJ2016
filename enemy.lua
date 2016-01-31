@@ -1,4 +1,6 @@
- local enemy = {}
+local soundTable = require("soundTable")
+
+local enemy = {}
 
 enemy.TAP_1HP = 1
 enemy.TAP_5HP = 2
@@ -6,14 +8,14 @@ enemy.HOLD = 3
 
 
 
-local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold
+local calcDir, setVel, updatePosition, onTouch, checkInZone, setType, checkDeath, setHold, drainHP, removeHold, kill
 
 function calcDir(x, y)
 
 	return math.atan2( 0.5 * display.contentHeight - y, 0.5 * display.contentWidth - x  )
 end
 
-local function setVel(enm)
+function setVel(enm)
 	enm.vx = enm.speed * math.cos(enm.dir)
 	enm.vy = enm.speed * math.sin(enm.dir)
 end
@@ -29,6 +31,12 @@ function checkInZone(enm)
 
 		enm.gm:gameOver()
 	end
+end
+
+function kill(enm)
+
+	audio.play( soundTable.splat )
+	enemy.destroy(enm)
 end
 
 function enemy.destroy(enm)
@@ -95,7 +103,7 @@ end
 function checkDeath(enm)
 
 	if enm.hp <= 0 then
-		enemy.destroy(enm)
+		kill(enm)
 	end
 end
 

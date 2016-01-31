@@ -1,4 +1,5 @@
 local composer = require( "composer" )
+local soundTable = require("soundTable")
 local scene = composer.newScene()
 
 local widget = require( "widget" )
@@ -11,12 +12,21 @@ local myData = require( "mydata" )
 
 local function handlePlayButtonEvent( event )
     if ( "ended" == event.phase ) then
+
+        local menu = event.target.params.menu
+
+        audio.play(soundTable.click)
+
+        print(menu.bgm, "channel")
+        audio.stop(menu.bgm)
+
         composer.gotoScene("gameScene", { effect = "crossFade", time = 333 })
     end
 end
 
 local function handleHelpButtonEvent( event )
     if ( "ended" == event.phase ) then
+        audio.play(soundTable.click)
         composer.gotoScene("help", { effect = "crossFade", time = 333, isModal = true })
     end
 end
@@ -24,6 +34,7 @@ end
 local function handleCreditsButtonEvent( event )
 
     if ( "ended" == event.phase ) then
+        audio.play(soundTable.click)
         composer.gotoScene("gamecredits", { effect = "crossFade", time = 333 })
     end
 end
@@ -31,6 +42,7 @@ end
 local function handleSettingsButtonEvent( event )
 
     if ( "ended" == event.phase ) then
+        audio.play(soundTable.click)
         composer.gotoScene("gamesettings", { effect = "crossFade", time = 333 })
     end
 end
@@ -42,6 +54,8 @@ function scene:create( event )
     local sceneGroup = self.view
 
     params = event.params
+
+    self.bgm = audio.play(audio.loadStream("audio/intro.wav"), {loops = -1})
         
     --
     -- setup a page background, really not that important though composer
@@ -71,6 +85,8 @@ function scene:create( event )
         overFile = "button/playButtonPressed.png",
         onEvent = handlePlayButtonEvent
     })
+
+    playButton.params = {menu = self}
     
     -- local playButton = display.newImage("button/playButton.png")
     playButton.x = display.contentCenterX - 120
@@ -127,14 +143,20 @@ function scene:show( event )
     end
 
     if event.phase == "did" then
+
+        if self.bgm and not audio.isChannelActive( self.bgm ) then
+            self.bgm = audio.play(audio.loadStream("audio/intro.wav"), {loops = -1})
+        end
         composer.removeScene( "game" ) 
     end
 end
 
 function scene:hide( event )
     local sceneGroup = self.view
+
     
     if event.phase == "will" then
+
     end
 
 end
