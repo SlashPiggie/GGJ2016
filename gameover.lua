@@ -74,15 +74,15 @@ function scene:create( event )
     gameOverText.y = 50
     sceneGroup:insert(gameOverText)
 
-    local leaderBoardButton = widget.newButton({
-        id = "leaderboard",
-        --label = "Play",
-        defaultFile = "button/leaderboardButton.png",
-        onEvent = showLeaderboard
-    })
-    leaderBoardButton.x = display.contentCenterX 
-    leaderBoardButton.y = 225
-    sceneGroup:insert( leaderBoardButton )
+    -- local leaderBoardButton = widget.newButton({
+    --     id = "leaderboard",
+    --     --label = "Play",
+    --     defaultFile = "button/leaderboardButton.png",
+    --     onEvent = showLeaderboard
+    -- })
+    -- leaderBoardButton.x = display.contentCenterX 
+    -- leaderBoardButton.y = 225
+    -- sceneGroup:insert( leaderBoardButton )
 
     local doneButton = widget.newButton({
         id = "button1",
