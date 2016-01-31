@@ -33,10 +33,20 @@ function checkInZone(enm)
 	end
 end
 
-function deathAnimation(x, y)
+function deathAnimation(enm)
+
+
+	local bloodImg = display.newImageRect("images/monster_die.png", 60, 60 )
+
+	enm.gm.group:insert(bloodImg)
+
+	bloodImg.x = enm.x
+	bloodImg.y = enm.y
 end
 
 function kill(enm)
+
+	deathAnimation(enm)
 
 	enm.gm:updateScore(enm.score)
 
@@ -117,15 +127,15 @@ function enemy.new(gm, x, y, speed, type)
 	local enm
 	
 	if type == enemy.TAP_1HP then
-		enm = display.newImageRect( gm.group, "images/enemy1.png", 60, 80 )
+		enm = display.newImageRect( gm.enemyGroup, "images/enemy1.png", 60, 80 )
 		enm.hp = 1
 		enm.score = 100
 	elseif type == enemy.TAP_5HP then
-		enm = display.newImageRect( gm.group, "images/enemy2.png", 60, 80 )
+		enm = display.newImageRect( gm.enemyGroup, "images/enemy2.png", 60, 80 )
 		enm.hp = 4
 		enm.score = 500
 	elseif type == enemy.HOLD then
-		enm = display.newImageRect( gm.group, "images/enemy3.png", 60, 80 )
+		enm = display.newImageRect( gm.enemyGroup, "images/enemy3.png", 60, 80 )
 		enm.hp = 20
 		enm.isHeld = false
 		enm.score = 500
