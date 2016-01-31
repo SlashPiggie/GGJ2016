@@ -46,14 +46,22 @@ function scene:create( event )
     -- setup a page background, really not that important though composer
     -- crashes out if there isn't a display object in the view.
     --
-    local screen_adjustment = 0.4
-    --local background = display.newRect( 0, 0, 570, 360 )
-    local background = display.newImage("images/background3.jpg",true)
+    -- local screen_adjustment = 0.4
+    -- --local background = display.newRect( 0, 0, 570, 360 )
+    -- local background = display.newImage("images/background3.jpg",true)
+    -- background.xScale = (screen_adjustment  * background.contentWidth)/background.contentWidth
+    -- background.yScale = background.xScale
+    -- background.x = display.contentWidth / 2
+    -- background.y = display.contentHeight / 2
+    -- background.alpha = 0.1
+    -- sceneGroup:insert( background )
+    local screen_adjustment = 1
+    local background = display.newRect( 0, 0, 570, 360 )
     background.xScale = (screen_adjustment  * background.contentWidth)/background.contentWidth
     background.yScale = background.xScale
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-    background.alpha = 0.1
+    background:setFillColor( 1 )
     sceneGroup:insert( background )
 
     --local title = display.newBitmapText( titleOptions )
@@ -65,7 +73,7 @@ function scene:create( event )
 
     local helpScreen = display.newImage("images/helpScreen.png")
     helpScreen.x = display.contentCenterX - 5
-    helpScreen.y = display.contentCenterY - 20
+    helpScreen.y = display.contentCenterY - 10
     sceneGroup:insert( helpScreen )
 
     local doneButton = widget.newButton({

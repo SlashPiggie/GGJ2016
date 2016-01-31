@@ -61,15 +61,15 @@ function scene:create( event )
     --
     local screen_adjustment = 0.4
     --local background = display.newRect( 0, 0, 570, 360 )
-    local background = display.newImage("images/background3.jpg",true)
-    background.xScale = (screen_adjustment  * background.contentWidth)/background.contentWidth
-    background.yScale = background.xScale
-    background.x = display.contentWidth / 2
-    background.y = display.contentHeight / 2
-    sceneGroup:insert( background )
+    -- local background = display.newImage("images/background3.jpg",true)
+    -- background.xScale = (screen_adjustment  * background.contentWidth)/background.contentWidth
+    -- background.yScale = background.xScale
+    -- background.x = display.contentWidth / 2
+    -- background.y = display.contentHeight / 2
+    -- sceneGroup:insert( background )
 
-    local gameOverText = display.newText("Game Over", 0, 0, native.systemFontBold, 32 )
-    gameOverText:setFillColor( 0 )
+    local gameOverText = display.newImage("images/gameOver.png", true)
+    --gameOverText:setFillColor( 0 )
     gameOverText.x = display.contentCenterX
     gameOverText.y = 50
     sceneGroup:insert(gameOverText)

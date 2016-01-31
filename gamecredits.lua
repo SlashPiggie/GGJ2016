@@ -45,8 +45,8 @@ function scene:create( event )
     --local creditText = display.newText( textSelection[2], 250, 250, native.systemFont, 16 )
     --creditText:setFillColor( 1 )
     local creditText = display.newImage("images/credit.png", true)
-    creditText.x = display.contentCenterX - 10
-    creditText.y = display.contentCenterY  + 50
+    creditText.x = display.contentCenterX + 5
+    creditText.y = display.contentCenterY + 10
     sceneGroup:insert(creditText)
 
     -- http://www.freesfx.co.uk
