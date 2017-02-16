@@ -1,15 +1,40 @@
-## Synopsis
+Overview
+============
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+**
+To play the game either on mobile or laptop, PC, you need to install Corona from here: "https://developer.coronalabs.com/downloads/coronasdk"
+1.Install the SDK
+2.For PC and laptop, just run the simulator with the main file to play the game
+3.To play the game on mobile phone (Android only), go to File -> Build -> Android and install the generated apk file to your mobile device
 
-## Code Example
+Prime Ritual is a mobile game created by Team Rejects for Finnish Game Jam 2016 - Vaasa, a branch of Global Game Jam 2016. Prime Ritual is a simple tapping and holding game. The objective is to keep mages away from the ritual, each mage will have their own different patter to get defeated.
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+The game was developed with the language LUA under the environement Corona Labs. 
+The game is compatible with Android devices, iOS devices has not been tested yet.
 
-## Motivation
+## Check it out!
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+![GIF of MarqueeLabelDemo in action](Prime-Ritual--Team-Rejects-FGJ2016/press/screenshot.png)
 
+## How To Get Started
+
+1. Download the Corona SDK from https://coronalabs.com/corona-sdk/ (You will need an account for that)
+2. Either pull the project or download the whole project to your local computer
+3. 
+
+### Installation
+#### [CocoaPods](http://cocoapods.org)
+
+MarqueeLabel has [subspecs](https://guides.cocoapods.org/syntax/podspec.html#subspec) for both Objective-C and Swift! Currently, Objective-C is the default subspec.
+
+That means to use MarqueeLabel in an Objective-C project, add the following to your project's Podfile:
+```ruby
+pod 'MarqueeLabel'
+```
+But if you're using Swift, add the following instead to specify the Swift subspec:
+```ruby
+pod 'MarqueeLabel/Swift'
+```
 ## Installation
 
 Provide code examples and explanations of how to get the project.
