@@ -1,8 +1,6 @@
 Overview
 ============
 
-3.To play the game on mobile phone (Android only), go to File -> Build -> Android and install the generated apk file to your mobile device
-
 Prime Ritual is a mobile game created by Team Rejects for Finnish Game Jam 2016 - Vaasa, a branch of Global Game Jam 2016. Prime Ritual is a simple tapping and holding game. The objective is to keep mages away from the ritual, each mage will have their own different patter to get defeated.
 
 The game was developed with the language LUA under the environement Corona Labs. 
