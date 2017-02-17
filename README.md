@@ -1,56 +1,37 @@
 Overview
 ============
 
-**
-To play the game either on mobile or laptop, PC, you need to install Corona from here: "https://developer.coronalabs.com/downloads/coronasdk"
-1.Install the SDK
-2.For PC and laptop, just run the simulator with the main file to play the game
 3.To play the game on mobile phone (Android only), go to File -> Build -> Android and install the generated apk file to your mobile device
 
 Prime Ritual is a mobile game created by Team Rejects for Finnish Game Jam 2016 - Vaasa, a branch of Global Game Jam 2016. Prime Ritual is a simple tapping and holding game. The objective is to keep mages away from the ritual, each mage will have their own different patter to get defeated.
 
 The game was developed with the language LUA under the environement Corona Labs. 
-The game is compatible with Android devices, iOS devices has not been tested yet.
+The game is compatible with both Android and iOS devices
 
 ## Check it out!
 
-![GIF of MarqueeLabelDemo in action](Prime-Ritual--Team-Rejects-FGJ2016/press/screenshot.png)
+![Picture taken from real game footage](https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png)
 
-## How To Get Started
+## How To Play/Test the game
+
+### On PC / Laptop
 
 1. Download the Corona SDK from https://coronalabs.com/corona-sdk/ (You will need an account for that)
 2. Either pull the project or download the whole project to your local computer
-3. 
+3. Open Corona Simulator from Corona SDK and open the main.lua file which can be found in src folder
+4. The Simulator will runs the game automatically for you
 
-### Installation
-#### [CocoaPods](http://cocoapods.org)
+### For Android devices
 
-MarqueeLabel has [subspecs](https://guides.cocoapods.org/syntax/podspec.html#subspec) for both Objective-C and Swift! Currently, Objective-C is the default subspec.
+In Corona Simulator, go to File -> Build -> Android, it will then generate an apk file for you. Just copy the file to your Android device and install it.
 
-That means to use MarqueeLabel in an Objective-C project, add the following to your project's Podfile:
-```ruby
-pod 'MarqueeLabel'
-```
-But if you're using Swift, add the following instead to specify the Swift subspec:
-```ruby
-pod 'MarqueeLabel/Swift'
-```
-## Installation
+### For iOS devices
 
-Provide code examples and explanations of how to get the project.
-
-## API Reference
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
+Note!!! You will need an Apple Developer account and XCode in order to test the game. 
+You can follow this guide for testing the game on iOS devices or by using XCode simulator.
+https://docs.coronalabs.com/guide/distribution/iOSBuild/index.html
 
 ## Contributors
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
-## License
-
-A short snippet describing the license (MIT, Apache, etc.)
+Team Rejects consists of 5 IT students from VAMK, Vaasa University of Applied Sciences.
+Binh Bui, Thanh Bui, Thao Tran, Viet Vu, Arsenii Kurilov.
