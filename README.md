@@ -1,6 +1,6 @@
 Overview
 ============
-
+http://globalgamejam.org/2016/games/prime-ritual-fgj2016-vaasa
 Prime Ritual is a mobile game created by Team Rejects for Finnish Game Jam 2016 - Vaasa, a branch of Global Game Jam 2016. Prime Ritual is a simple tapping and holding game. The objective is to keep mages away from the ritual, each mage will have their own different patter to get defeated.
 
 The game was developed with the language LUA under the environement Corona Labs. 
