@@ -9,7 +9,7 @@ The game is compatible with both Android and iOS devices
 
 ## Check it out!
 
-![Picture taken from real game footage](https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png)
+![Picture taken from real game footage](https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png =250x)
 
 ## How To Play/Test the game
 
