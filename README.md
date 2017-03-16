@@ -10,7 +10,7 @@ The game is compatible with both Android and iOS devices
 ## Check it out!
 
 ![Picture taken from real game footage](https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png =250x)
-<img src="https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png =250x" alt="Real Game Footage" style="width: 200px;"/>
+<img src="https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png" alt="Real Game Footage" style="width: 200px;"/>
 
 ## How To Play/Test the game
 
