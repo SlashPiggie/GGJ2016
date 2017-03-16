@@ -8,9 +8,8 @@ The game was developed with the language LUA under the environement Corona Labs.
 The game is compatible with both Android and iOS devices
 
 ## Check it out!
-
-![Picture taken from real game footage](https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png =250x)
-<img src="https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png" alt="Real Game Footage" style="width: 200px;"/>
+<img src="https://github.com/binhbui411/Prime-Ritual--Team-Rejects-FGJ2016/blob/master/press/screenshot.png" alt="Real Game Footage" height="300"/>
+*Real Game Footage
 
 ## How To Play/Test the game
 
